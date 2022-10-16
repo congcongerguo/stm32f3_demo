@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "type": "cortex-debug",
+            "request": "launch",
+            "name": "Debug stm32 rust",
+            "servertype": "openocd",
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "cargo build",
+            "runToMain": true,
+            "executable": "./target/thumbv7em-none-eabihf/debug/stm32f3_demo",
+            "preLaunchCommands": ["break rust_begin_unwind"],
+            "device": "STM32F303VCT6",
+            "configFiles": [
+                "interface/stlink-v2-1.cfg",
+                "target/stm32f3x.cfg"
+            ],
+            "svdFile": ".svd/STM32F303.svd",
+            "swoConfig": {
+                "enabled": true,
+                "cpuFrequency": 8000000,
+                "swoFrequency": 2000000,
+                "source": "probe",
+                "decoders": [
+                    { "type": "console", "label": "ITM", "port": 0 }
+                ]
+            }
+        }
+    ]
+}
